@@ -89,11 +89,23 @@ psql -h localhost -p ${POSTGRES_PORT:-5432} -U $POSTGRES_USER -d $POSTGRES_DB
 
 ## Migrations
 
+### Mode démarrage (docker-compose)
+
 Les migrations Flyway s'exécutent automatiquement au démarrage. Pour suivre la progression :
 
 ```bash
 docker-compose logs flyway
 ```
+
+### Mode CLI
+
+Pour exécuter les migrations manuellement (PostgreSQL déjà démarré) :
+
+```bash
+./scripts/run-migrations.sh
+```
+
+Le script lit les variables `POSTGRES_HOST`, `POSTGRES_PORT`, `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD` depuis `.env` ou l'environnement. Avec `docker-compose up`, utilisez `POSTGRES_HOST=localhost` (le script adapte la connexion pour le conteneur Flyway).
 
 Pour vérifier que les schémas ont été créés :
 
